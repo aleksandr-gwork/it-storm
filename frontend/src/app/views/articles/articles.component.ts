@@ -4,7 +4,6 @@ import {ArticlesType} from "../../../types/articles.type";
 import {CategoriesService} from "../../shared/services/categories.service";
 import {CategoriesType} from "../../../types/categories.type";
 import {ActivatedRoute, Router} from "@angular/router";
-import {debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-articles',
@@ -21,10 +20,12 @@ export class ArticlesComponent implements OnInit {
   filterCategories: CategoriesType[] = [];
   activeFilterCategories: string[] = [];
   activeParams: { page: number, categories: string[] } = {page: 1, categories: []};
+  pages: number[] = [];
 
   constructor(private articlesService: ArticlesService,
               private categoriesService: CategoriesService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,18 +41,29 @@ export class ArticlesComponent implements OnInit {
     this.activatedRoute.queryParams
       .subscribe((params) => {
         this.activeParams = {
-          page: +params['page'] || 1,
+          page: +params['page'],
           categories: this.activeFilterCategories
         }
         this.articlesService.getArticles(this.activeParams)
           .subscribe((data: ArticlesType) => {
             this.articles = data;
+
+            this.pages = [];
+            for (let i = 1; i <= data.pages; i++) {
+              this.pages.push(i)
+            }
           })
       })
   }
 
   updateFilter() {
     this.activeFilterCategories = this.filterCategories.map((item) => item.url);
+    this.router.navigate(['/articles'], {
+      queryParams: {
+        page: 1,
+        categories: this.activeFilterCategories
+      }
+    })
     this.processArticles();
   }
 
@@ -72,5 +84,33 @@ export class ArticlesComponent implements OnInit {
       this.filterHeaderStatus = false;
     }
   }
+
+  openPage(page: number) {
+    this.activeParams.page = page;
+    this.router.navigate(['/articles'], {
+      queryParams: this.activeParams
+    })
+  }
+
+  openNextPage() {
+    if (this.activeParams.page && (this.activeParams.page < this.pages.length)) {
+      this.activeParams.page++;
+      this.router.navigate(['/articles'], {
+        queryParams: this.activeParams
+      })
+    } else {
+      console.log('Ошибка: ' + this.activeParams.page);
+    }
+  }
+
+  openPrevPage() {
+    if (this.activeParams.page && this.activeParams.page > 1) {
+      this.activeParams.page--;
+      this.router.navigate(['/articles'], {
+        queryParams: this.activeParams
+      })
+    }
+  }
+
 
 }
