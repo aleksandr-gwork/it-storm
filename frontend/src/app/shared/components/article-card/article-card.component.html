@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="articles-item-footer">
-    <a class="articles-link" [href]="'articles/top' + article?.url">Читать статью</a>
+    <a class="articles-link" routerLink="/articles/{{ article?.url }}">Читать дальше</a>
   </div>
   <div class="articles-category">{{ article?.category }}</div>
 </div>

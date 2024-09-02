@@ -29,7 +29,6 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.processArticles();
     this.categoriesService.getCategories()
       .subscribe((data: CategoriesType[]) => {

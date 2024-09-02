@@ -21,4 +21,12 @@ export class ArticlesService {
       params: params
     });
   }
+
+  getArticle(url: string): Observable<ArticleType> {
+    return this.http.get<ArticleType>(environment.api + 'articles/' + url);
+  }
+
+  getRelatedArticles(url: ArticleType): Observable<ArticleType[]> {
+    return this.http.get<ArticleType[]>(environment.api + 'articles/related/' + url);
+  }
 }

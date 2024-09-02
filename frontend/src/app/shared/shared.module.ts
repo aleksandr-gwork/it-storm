@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OrderModalComponent } from './components/order-modal/order-modal.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ArticleCardComponent } from './components/article-card/article-card.component';
+import {RouterModule} from "@angular/router";
 
 
 
@@ -17,6 +18,7 @@ import { ArticleCardComponent } from './components/article-card/article-card.com
   ],
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule
   ]
 })

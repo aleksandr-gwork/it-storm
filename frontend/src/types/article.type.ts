@@ -5,5 +5,8 @@ export type ArticleType = {
   image: string,
   date: string,
   category: string,
-  url: string
+  url: string,
+  comments?: string[],
+  commentsCount?: string,
+  text?: string
 }
