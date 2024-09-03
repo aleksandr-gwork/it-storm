@@ -1,0 +1,138 @@
+.article {
+  position: relative;
+  padding-bottom: 60px;
+
+  .breadcrumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 60px;
+
+    a {
+      font-weight: 400;
+      font-size: 16px;
+      color: #b9d5fd;
+      text-decoration: none;
+    }
+
+    .breadcrumbs-separator {
+      font-weight: 400;
+      font-size: 14px;
+      color: #b9d5fd;
+    }
+
+    .breadcrumbs-title {
+      font-weight: 500;
+      font-size: 16px;
+      color: #709fdc;
+    }
+  }
+
+  .article-content {
+
+    .article-content-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 60px;
+
+      .article-content-info-text {
+        max-width: 607px;
+        margin-right: 30px;
+
+        .article-content-info-title {
+          font-family: "Lora", sans-serif;
+          font-weight: 400;
+          font-size: 38px;
+          line-height: 130%;
+          color: #709fdc;
+          margin-bottom: 40px;
+        }
+
+        .article-content-info-description {
+          font-weight: 400;
+          font-size: 20px;
+          line-height: 130%;
+          color: #709fdc;
+        }
+      }
+
+      .article-content-image {
+        width: 527px;
+        min-width: 400px;
+        height: 320px;
+        background-color: gray;
+        overflow: hidden;
+        border-radius: 5px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+    }
+
+    .article-content-main {
+      display: flex;
+      gap: 130px;
+
+      .article-content-main-text::ng-deep {
+
+        h1 {
+          color: #709fdc;
+          margin-bottom: 20px;
+        }
+
+        h3 {
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 130%;
+          color: #709fdc;
+
+          margin-top: 40px;
+          margin-bottom: 20px;
+        }
+
+        p {
+          margin: 0 0 20px 0;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 130%;
+          color: #071739;
+        }
+      }
+
+      .article-content-more {
+        width: 292px;
+
+        .article-more-title {
+          font-family: "Lora", sans-serif;
+          font-weight: 400;
+          font-size: 26px;
+          line-height: 130%;
+          color: #709fdc;
+          margin-bottom: 20px;
+        }
+
+        .articles-more-cards {
+          display: flex;
+          flex-direction: column;
+          gap: 60px;
+        }
+      }
+    }
+  }
+
+  .share {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    p {
+      font-weight: 500;
+      font-size: 14px;
+      color: #709fdc;
+    }
+  }
+}
