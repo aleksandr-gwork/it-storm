@@ -77,29 +77,152 @@
       display: flex;
       gap: 130px;
 
-      .article-content-main-text::ng-deep {
+      .article-content-main-info {
+        .article-content-main-text::ng-deep {
 
-        h1 {
-          color: #709fdc;
-          margin-bottom: 20px;
+          h1 {
+            color: #709fdc;
+            margin-bottom: 20px;
+          }
+
+          h3 {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 130%;
+            color: #709fdc;
+
+            margin-top: 40px;
+            margin-bottom: 20px;
+          }
+
+          p {
+            margin: 0 0 20px 0;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 130%;
+            color: #071739;
+          }
         }
 
-        h3 {
-          font-weight: 500;
-          font-size: 20px;
-          line-height: 130%;
-          color: #709fdc;
+        .share {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding-top: 40px;
+          padding-bottom: 60px;
 
-          margin-top: 40px;
-          margin-bottom: 20px;
+          p {
+            font-weight: 500;
+            font-size: 14px;
+            color: #709fdc;
+          }
         }
 
-        p {
-          margin: 0 0 20px 0;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 130%;
-          color: #071739;
+        .comments {
+          width: 818px;
+
+          .comments-main-title {
+            margin-bottom: 20px;
+          }
+
+          .comments-description {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 130%;
+            color: #071739;
+
+            a {
+              text-decoration: none;
+              color: #709fdc;
+            }
+          }
+
+          .comments-form {
+            textarea {
+              box-sizing: border-box;
+              width: 100%;
+
+              border: 2px solid #709fdc;
+              border-radius: 3px;
+              padding: 20px;
+              height: 248px;
+
+              font-family: "Montserrat", sans-serif;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 130%;
+
+              resize: none;
+
+              &::placeholder {
+                color: #a8aba7;
+              }
+
+              &:focus {
+                outline: none;
+              }
+            }
+
+            button {
+              margin-top: 20px;
+              width: 422px;
+            }
+          }
+
+          .comments-list {
+            margin-top: 60px;
+
+            .comments-list-item {
+              .comments-list-item-header {
+                display: flex;
+                gap: 26px;
+                margin-bottom: 15px;
+
+                .comments-list-item-header-image {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 60px;
+                  height: 60px;
+                  border: 2px solid #709FDC;
+                  border-radius: 50%;
+                  background-color: #B9D5FD;
+                }
+
+                .comments-list-item-header-info {
+                  .comments-list-item-header-info-name {
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: #709fdc;
+                  }
+
+                  .comments-list-item-header-info-date {
+                    margin-top: 10px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    color: #bebebe;
+                  }
+                }
+              }
+
+              .comments-list-item-actions {
+                display: flex;
+                gap: 15px;
+                margin-top: 39px;
+
+                .comments-list-item-actions-item {
+
+                  display: flex;
+                  align-items: center;
+                  gap: 3px;
+
+                  svg {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
         }
       }
 
@@ -123,16 +246,7 @@
       }
     }
   }
-
-  .share {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    p {
-      font-weight: 500;
-      font-size: 14px;
-      color: #709fdc;
-    }
-  }
 }
+
+
+

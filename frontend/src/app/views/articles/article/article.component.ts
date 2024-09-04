@@ -10,6 +10,12 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ArticleComponent implements OnInit {
 
+  loggedUser: boolean = false;
+  actionCommentStatus = {
+    like: false,
+    dislike: false
+  }
+
   article: ArticleType | undefined;
   relatedArticles: ArticleType[] | undefined;
 
