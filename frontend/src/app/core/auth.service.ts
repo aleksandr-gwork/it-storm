@@ -23,9 +23,9 @@ export class AuthService {
     this.isLogged = !!localStorage.getItem(this.accessTokenKey);
   }
 
-  signup(email: string, password: string, remember: boolean): Observable<DefaultResponseType | SignupResponseType> {
-    return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {
-      email, password, remember
+  signup(name:string, email: string, password: string): Observable<DefaultResponseType | SignupResponseType> {
+    return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'signup', {
+      name, email, password
     })
   }
 
@@ -39,6 +39,16 @@ export class AuthService {
     const tokens = this.getTokens();
     if (tokens && tokens.refreshToken) {
       return this.http.post<DefaultResponseType>(environment.api + 'logout', {
+        refreshToken: tokens.refreshToken
+      })
+    }
+    throw throwError(() => 'Ошибка токена');
+  }
+
+  refresh(): Observable<DefaultResponseType | LoginResponseType> {
+    const tokens = this.getTokens();
+    if (tokens && tokens.refreshToken) {
+      return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'refresh', {
         refreshToken: tokens.refreshToken
       })
     }

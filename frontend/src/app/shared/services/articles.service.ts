@@ -26,6 +26,10 @@ export class ArticlesService {
     return this.http.get<ArticleType>(environment.api + 'articles/' + url);
   }
 
+  getArticle1(): Observable<ArticleType> {
+    return this.http.get<ArticleType>(environment.api + 'articles/');
+  }
+
   getRelatedArticles(url: ArticleType): Observable<ArticleType[]> {
     return this.http.get<ArticleType[]>(environment.api + 'articles/related/' + url);
   }

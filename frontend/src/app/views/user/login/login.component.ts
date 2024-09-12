@@ -5,6 +5,7 @@ import {DefaultResponseType} from "../../../../types/default-response.type";
 import {LoginResponseType} from "../../../../types/login-response.type";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     rememberMe: [false]
   })
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -41,20 +43,19 @@ export class LoginComponent implements OnInit {
               error = 'Ошибка авторизации'
             }
             if (error) {
-              //TODO: Добавить снэкбар с ошибкой
+              this._snackBar.open(error);
               throw new Error(error);
             }
             this.authService.setTokens(loginResponse.accessToken, loginResponse.refreshToken);
             this.authService.userIdKey = loginResponse.userId;
-
-            //TODO: Добавить снэкбар с успешной авторизацией
+            this._snackBar.open('Успешная авторизация');
             this.router.navigate(['/']);
           },
           error: (errorResponse: HttpErrorResponse) => {
             if (errorResponse.error && errorResponse.error.message) {
-              //TODO: Добавить снэкбар с ошибкой errorResponse.error.message
+              this._snackBar.open(errorResponse.error.message);
             } else {
-              //TODO: Добавить снэкбар с ошибкой 'Ошибка авторизации'
+              this._snackBar.open('Ошибка авторизации');
             }
           }
         })

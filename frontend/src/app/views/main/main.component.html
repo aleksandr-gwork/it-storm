@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <div class="services">
+    <div class="services" id="services">
       <h2 class="services-title h2">Услуги, которые мы предлагаем</h2>
       <div class="services-items">
         <div class="services-item" *ngFor="let service of services">
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <div class="about">
+    <div class="about" id="about">
       <img src="assets/images/about.png" alt="">
       <div class="about-block">
         <h2 class="about-title h2">Кто мы и чем мы занимаемся?</h2>
@@ -116,7 +116,7 @@
       </a>
     </div>
 
-    <div class="reviews">
+    <div class="reviews" id="reviews">
       <h2 class="reviews-title h2">Отзывы о нашей работе</h2>
       <div class="reviews-slider">
         <owl-carousel-o [options]="reviewsSlider" #reviewsCar (changed)="slidesData($event)">
@@ -174,7 +174,7 @@
       </div>
     </div>
 
-    <div class="contacts">
+    <div class="contacts" id="contacts">
       <div class="contacts-map">
         <a
           href="https://yandex.ru/maps/?um=constructor%3A178f757785adb36f52b775d3ad1eb6d1333396d84f65bff1f3743d6f4649c2d3&amp;source=constructorStatic"

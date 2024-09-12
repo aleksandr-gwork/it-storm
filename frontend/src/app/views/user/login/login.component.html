@@ -4,9 +4,9 @@
       <h1 class="h2 title">Войти в личный кабинет</h1>
       <form [formGroup]="loginForm">
         <input type="text" placeholder="Электронная почта" class="input" formControlName="email">
-        <input type="text" placeholder="Пароль" class="input" formControlName="password">
+        <input type="password" placeholder="Пароль" class="input" formControlName="password" autocomplete="off">
         <label class="agree">
-          <input type="checkbox" formControlName="remember">
+          <input type="checkbox" formControlName="rememberMe">
           <span>Запомнить меня</span>
         </label>
         <button class="btn" type="button" (click)="login()">Войти</button>

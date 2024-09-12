@@ -2,15 +2,15 @@
   <div class="wrapper">
     <div class="form">
       <h1 class="h2 title">Регистрация на сайте</h1>
-      <form>
-        <input type="text" placeholder="Ваше имя" class="input">
-        <input type="text" placeholder="Электронная почта" class="input">
-        <input type="text" placeholder="Пароль" class="input">
+      <form [formGroup]="signupForm">
+        <input type="text" placeholder="Ваше имя" class="input" formControlName="name">
+        <input type="text" placeholder="Электронная почта" class="input" formControlName="email">
+        <input type="password" placeholder="Пароль" class="input" formControlName="password" autocomplete="off">
         <label class="agree">
-          <input type="checkbox">
+          <input type="checkbox" formControlName="agree">
           <span>Я принимаю <a routerLink="/policy">условия пользовательского соглашения</a> и даю <a routerLink="/policy">согласие на обработку персональных данных</a>.</span>
         </label>
-        <button class="btn" type="button">Войти</button>
+        <button class="btn" type="button" (click)="signUp()">Зарегистрироваться</button>
       </form>
       <p class="link">Уже есть аккаунт? <a routerLink="/login">Войдите</a></p>
     </div>

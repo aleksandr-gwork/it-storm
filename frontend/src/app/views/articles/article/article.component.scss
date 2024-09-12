@@ -170,6 +170,9 @@
           }
 
           .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
             margin-top: 60px;
 
             .comments-list-item {
@@ -219,6 +222,29 @@
                   svg {
                     cursor: pointer;
                   }
+                }
+              }
+            }
+            .more-comments {
+
+              cursor: pointer;
+              margin-top: 20px;
+              height: 26px;
+
+              .more-comments-button {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                font-weight: 500;
+                font-size: 20px;
+                color: #709fdc;
+              }
+              .loader {
+                text-align: center;
+                img {
+                  width: 26px;
+                  height: 26px;
                 }
               }
             }
