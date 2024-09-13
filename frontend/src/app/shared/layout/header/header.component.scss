@@ -26,6 +26,7 @@
             color: $main-text-color;
             text-decoration: none;
           }
+
           a.active-link {
             color: $accent-color;
           }
@@ -40,6 +41,7 @@
           white-space: nowrap;
           color: $accent-color;
           text-decoration: none;
+
           &:hover {
             color: gray;
           }
@@ -50,16 +52,18 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        cursor: pointer;
         gap: 7px;
+
+        svg {
+          &.hover-svg:hover path {
+            cursor: pointer;
+            stroke: #B9D5FD;
+          }
+        }
 
         a {
           color: $main-text-color;
           text-decoration: none;
-        }
-
-        &:hover {
-          color: $light-accent-color;
         }
       }
     }

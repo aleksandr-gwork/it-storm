@@ -69,7 +69,7 @@ export class AuthService {
     }
   }
 
-  public removeTokens(): void {
+  removeTokens(): void {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
     this.isLogged = false;
