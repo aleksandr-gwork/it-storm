@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {OrderService} from "../../services/order.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {OrderService} from "../../services/order.service";
 export class OrderModalComponent implements OnChanges{
   @Input() modalText?: string;
   @Input() isVisible = false;
-  @Output() modalChange = new EventEmitter<{ isVisible: boolean; modalText?: string }>();
+  @Output() isVisibleChange = new EventEmitter<boolean>();
 
   modalState = {
     isVisible: false,
@@ -18,7 +18,7 @@ export class OrderModalComponent implements OnChanges{
   };
 
   modalForm = this.fb.group({
-    service: [this.modalText],
+    service: [this.modalText, Validators.required],
     name: [''],
     phone: [''],
   });
@@ -29,12 +29,13 @@ export class OrderModalComponent implements OnChanges{
 
   ngOnChanges() {
     this.modalState.isVisible = this.isVisible;
+    this.modalForm.get('service')?.setValue(this.modalText);
   }
 
   closeModal() {
     this.modalState.isVisible = false;
+    this.isVisibleChange.emit(this.modalState.isVisible);
     this.modalState.isSubmitted = false;
-    this.modalChange.emit(this.modalState);
     this.modalForm.reset();
   }
 

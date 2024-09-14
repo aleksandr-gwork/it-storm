@@ -240,6 +240,7 @@
 </main>
 <app-order-modal
   [modalText]="modalText"
-  (modalChange)="handleModalChange($event)"
-  [isVisible]="isVisible">
+  [isVisible]="isVisible"
+  (isVisibleChange)="isVisible = $event"
+>
 </app-order-modal>

@@ -50,9 +50,6 @@ export class MainComponent implements OnInit {
     nav: false
   }
 
-  modalText?: string = '';
-  isVisible: boolean = false;
-
   //Data
   services = [
     {
@@ -101,6 +98,9 @@ export class MainComponent implements OnInit {
 
   articlesPopular: ArticleType[] = [];
 
+  modalText = 'Создание сайтов';
+  isVisible = false;
+
   constructor(private articlesService: ArticlesService) {
   }
 
@@ -117,14 +117,9 @@ export class MainComponent implements OnInit {
     }
   }
 
-  openModal(orderText?: string) {
-    this.modalText = orderText;
+  openModal(text: string) {
+    this.modalText = text;
     this.isVisible = true;
-  }
-
-  handleModalChange(event: { isVisible: boolean, modalText?: string }) {
-    this.isVisible = event.isVisible;
-    this.modalText = event.modalText;
   }
 
 
