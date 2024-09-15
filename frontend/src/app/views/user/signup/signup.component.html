@@ -8,7 +8,7 @@
         <input type="password" placeholder="Пароль" class="input" formControlName="password" autocomplete="off">
         <label class="agree">
           <input type="checkbox" formControlName="agree">
-          <span>Я принимаю <a routerLink="/policy">условия пользовательского соглашения</a> и даю <a routerLink="/policy">согласие на обработку персональных данных</a>.</span>
+          <span>Я принимаю <a routerLink="/policy" fragment="agreementTitle">условия пользовательского соглашения</a> и даю <a routerLink="/policy" fragment="policyTitle">согласие на обработку персональных данных</a>.</span>
         </label>
         <button class="btn" type="button" (click)="signUp()">Зарегистрироваться</button>
       </form>
