@@ -44,6 +44,20 @@
       row-gap: 5px;
       width: 422px;
 
+      select {
+        background-color: #fff;
+        color: $accent-color;
+        border: 1px solid $accent-color;
+
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+
+        option {
+          background-color: #fff;
+        }
+      }
+
 
       .order-modal-form-input {
         box-sizing: border-box;

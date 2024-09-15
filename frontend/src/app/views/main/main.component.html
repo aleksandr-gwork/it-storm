@@ -9,7 +9,7 @@
                 <div class="slide-text-offer">Предложение месяца</div>
                 <div class="slide-text-title">Продвижение в Instagram для вашего бизнеса <span>-15%</span>!</div>
                 <div class="slide-text-subtitle"></div>
-                <button class="btn slide-btn" (click)="openModal('Продвижение')">Подробнее</button>
+                <button class="btn slide-btn" (click)="openModal('SMM')">Подробнее</button>
               </div>
               <img src="assets/images/slider/slider-ellipse.png" alt="">
             </div>
@@ -35,7 +35,7 @@
                 <div class="slide-text-offer">Новость дня</div>
                 <div class="slide-text-title"><span>6 место</span> в ТОП-10 <br> SMM-агенств Москвы!</div>
                 <div class="slide-text-subtitle">Мы благодарим каждого, кто <br> голосовал за нас!</div>
-                <button class="btn slide-btn" (click)="openModal('Продвижение')">Подробнее</button>
+                <button class="btn slide-btn" (click)="openModal('SMM')">Подробнее</button>
               </div>
               <img src="assets/images/slider/slider-ellipse.png" alt="">
             </div>
@@ -70,7 +70,7 @@
           </div>
           <div class="services-item-footer">
             <span class="services-item-price">от {{ service.price }}₽</span>
-            <button class="btn services-item-btn" (click)="openModal(service.title)">Подробнее</button>
+            <button class="btn services-item-btn" (click)="openModal(service.category)">Подробнее</button>
           </div>
         </div>
       </div>

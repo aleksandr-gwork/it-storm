@@ -57,24 +57,28 @@ export class MainComponent implements OnInit {
       subtitle: 'В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!',
       image: 'assets/images/services/make-sites.png',
       price: 7500,
+      category: 'Фриланс'
     },
     {
       title: 'Продвижение',
       subtitle: 'Вам нужен качественный SMM-специалист или грамотный таргетолог? Мы готовы оказать Вам услугу “Продвижения” на наивысшем уровне!',
       image: 'assets/images/services/smm.png',
       price: 3500,
+      category: 'SMM'
     },
     {
       title: 'Реклама',
       subtitle: 'Без рекламы не может обойтись ни один бизнес или специалист. Обращаясь к нам, мы гарантируем быстрый прирост клиентов за счёт правильно настроенной рекламы.',
       image: 'assets/images/services/advertising.png',
       price: 1000,
+      category: 'Таргет'
     },
     {
       title: 'Копирайтинг',
       subtitle: 'Наши копирайтеры готовы написать Вам любые продающие текста, которые не только обеспечат рост охватов, но и помогут выйти на новый уровень в продажах.',
       image: 'assets/images/services/copyrighting.png',
       price: 750,
+      category: 'Копирайтинг'
     }
   ]
   advantages = [
@@ -117,8 +121,8 @@ export class MainComponent implements OnInit {
     }
   }
 
-  openModal(text: string) {
-    this.service = text;
+  openModal(serviceName: string) {
+    this.service = serviceName;
     this.isVisible = true;
   }
 

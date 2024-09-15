@@ -4,15 +4,18 @@
       <div class="order-modal">
         <h2 class="order-modal-title h2" [innerText]="serviceInput ? 'Заявка на услугу' : 'Закажите бесплатную консультацию!' "></h2>
         <form class="order-modal-form" [formGroup]="modalForm">
-          <div *ngIf="serviceInput" class="order-modal-form-input" [style.border-color]="modalForm.get('service')?.invalid && modalForm.get('service')?.touched && modalForm.get('service')?.dirty ? 'red' : '#709FDC'">
-            <input type="text" placeholder="Услуга" formControlName="service" readonly [disabled]="true">
-          </div>
+          <select class="order-modal-form-input" formControlName="service"
+                  [style.border-color]="modalForm.get('service')?.invalid && (modalForm.get('service')?.touched || modalForm.get('service')?.dirty) ? 'red' : '#709FDC'" *ngIf="serviceInput">
+            <option
+              *ngFor="let category of categories; index as i"
+              [ngValue]="category.name">{{category.name}}</option>
+          </select>
           <div class="order-modal-form-input"
-               [style.border-color]="modalForm.get('name')?.invalid && modalForm.get('name')?.touched && modalForm.get('name')?.dirty ? 'red' : '#709FDC'">
+               [style.border-color]="modalForm.get('name')?.invalid && (modalForm.get('name')?.touched || modalForm.get('name')?.dirty) ? 'red' : '#709FDC'">
             <input type="text" placeholder="Ваше имя" formControlName="name">
           </div>
           <div class="order-modal-form-input"
-               [style.border-color]="modalForm.get('phone')?.invalid && modalForm.get('phone')?.touched && modalForm.get('phone')?.dirty ? 'red' : '#709FDC'">
+               [style.border-color]="modalForm.get('phone')?.invalid && (modalForm.get('phone')?.touched || modalForm.get('phone')?.dirty) ? 'red' : '#709FDC'">
             <input type="text" placeholder="Ваш номер телефона" formControlName="phone">
           </div>
           <button class="btn order-modal-form-btn" type="button" (click)="sendOrder()">Отправить заявку</button>
