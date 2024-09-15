@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  private orderText: string | undefined = '';
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-
-  setOrderText(orderText: string | undefined) {
-    this.orderText = orderText;
+  request(data: any) {
+    return this.http.post(environment.api + 'requests', data);
   }
 
-  getOrderText() {
-    return this.orderText;
-  }
 }

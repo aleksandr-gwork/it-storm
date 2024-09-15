@@ -35,7 +35,7 @@
         <div class="info-item-content">
           <a href="tel:+74993431334">+7 (499) 343-13-34</a>
         </div>
-        <button class="info-item-btn btn" type="button">Перезвоните мне</button>
+        <button class="info-item-btn btn" type="button" (click)="openModal()">Перезвоните мне</button>
       </div>
       <div class="info-item">
         <div class="info-item-title">E-mail</div>
@@ -69,3 +69,9 @@
     </div>
   </div>
 </footer>
+<app-order-modal
+  [serviceInput]="false"
+  [isVisible]="isVisible"
+  (isVisibleChange)="isVisible = $event"
+>
+</app-order-modal>

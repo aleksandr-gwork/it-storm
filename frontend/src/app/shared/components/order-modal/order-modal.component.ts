@@ -7,9 +7,10 @@ import {OrderService} from "../../services/order.service";
   templateUrl: './order-modal.component.html',
   styleUrls: ['./order-modal.component.scss']
 })
-export class OrderModalComponent implements OnChanges{
-  @Input() modalText?: string;
-  @Input() isVisible = false;
+export class OrderModalComponent implements OnChanges {
+  @Input() service?: string;
+  @Input() isVisible: boolean = false;
+  @Input() serviceInput: boolean = false;
   @Output() isVisibleChange = new EventEmitter<boolean>();
 
   modalState = {
@@ -17,19 +18,21 @@ export class OrderModalComponent implements OnChanges{
     isSubmitted: false
   };
 
+  submitError = false;
+  submitErrorMessage = 'При отправке произошла ошибка. Попробуйте ещё раз позже.';
+
   modalForm = this.fb.group({
-    service: [this.modalText, Validators.required],
-    name: [''],
-    phone: [''],
+    service: [this.service],
+    name: ['', [Validators.required, Validators.pattern(/^[a-zA-Zа-яА-ЯёЁ]+$/)]],
+    phone: ['', [Validators.required, Validators.pattern(/^\+7\d{10}|8\d{10}$/)]],
   });
 
-  //TODO: Не работает передача услуги в форму
-
-  constructor(private fb: FormBuilder, private orderService: OrderService) {}
+  constructor(private fb: FormBuilder, private orderService: OrderService) {
+  }
 
   ngOnChanges() {
     this.modalState.isVisible = this.isVisible;
-    this.modalForm.get('service')?.setValue(this.modalText);
+    this.modalForm.get('service')?.setValue(this.service);
   }
 
   closeModal() {
@@ -40,6 +43,43 @@ export class OrderModalComponent implements OnChanges{
   }
 
   sendOrder() {
-    this.modalState.isSubmitted = true;
+    if (this.modalForm.valid) {
+      if (this.serviceInput) {
+        let data = {
+          service: this.modalForm.get('service')?.value,
+          name: this.modalForm.get('name')?.value,
+          phone: this.modalForm.get('phone')?.value,
+          type: 'order'
+        }
+        this.orderService.request(data)
+          .subscribe(
+            () => {
+              this.modalState.isSubmitted = true;
+            },
+            (err) => {
+              this.submitErrorMessage = err.error.message;
+              this.submitError = true;
+            }
+          );
+      } else if (!this.serviceInput) {
+        let data = {
+          name: this.modalForm.get('name')?.value,
+          phone: this.modalForm.get('phone')?.value,
+          type: 'consultation'
+        }
+        this.orderService.request(data)
+          .subscribe(
+            () => {
+              this.modalState.isSubmitted = true;
+            },
+            (err) => {
+              this.submitErrorMessage = err.error.message;
+              this.submitError = true;
+            }
+          );
+      }
+    }
+
+    console.log(this.modalForm.value);
   }
 }

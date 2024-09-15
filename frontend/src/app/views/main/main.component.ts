@@ -98,7 +98,7 @@ export class MainComponent implements OnInit {
 
   articlesPopular: ArticleType[] = [];
 
-  modalText = 'Создание сайтов';
+  service = '';
   isVisible = false;
 
   constructor(private articlesService: ArticlesService) {
@@ -118,7 +118,7 @@ export class MainComponent implements OnInit {
   }
 
   openModal(text: string) {
-    this.modalText = text;
+    this.service = text;
     this.isVisible = true;
   }
 
