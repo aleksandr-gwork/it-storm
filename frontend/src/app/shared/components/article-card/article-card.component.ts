@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ArticleType} from "../../../../types/article.type";
+import {CommentActionsType} from "../../../../types/comment-actions.type";
+import {CommentsService} from "../../services/comments.service";
 
 @Component({
   selector: 'article-card',
@@ -15,5 +17,7 @@ export class ArticleCardComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+
 
 }

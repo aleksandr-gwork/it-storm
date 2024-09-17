@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ArticlesService} from "../../../shared/services/articles.service";
 import {ArticleType} from "../../../../types/article.type";
 import {ActivatedRoute} from "@angular/router";
@@ -7,6 +7,8 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {CommentsService} from "../../../shared/services/comments.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CommentType} from "../../../../types/comment.type";
+import {CommentActionsType} from "../../../../types/comment-actions.type";
+import {DefaultResponseType} from "../../../../types/default-response.type";
 
 @Component({
   selector: 'app-article',
@@ -31,6 +33,11 @@ export class ArticleComponent implements OnInit {
 
   article: ArticleType | undefined;
   relatedArticles: ArticleType[] | undefined;
+
+  commentsActions: {
+    comment: string,
+    action: CommentActionsType
+  }[] = [];
 
 
   constructor(private articlesService: ArticlesService,
@@ -100,6 +107,9 @@ export class ArticleComponent implements OnInit {
         this.articlesService.getArticle(params['url'])
           .subscribe((data) => {
             this.article = data;
+
+            this.getArticleCommentActions(data.id);
+
             // Если количество комментариев больше 3, то показываем кнопку "Показать еще"
             if (this.article && this.article.commentsCount && this.article.commentsCount > 3) {
               this.moreButtonStatus = true;
@@ -116,4 +126,38 @@ export class ArticleComponent implements OnInit {
           });
       });
   }
+
+  applyAction(commentId: string, action: CommentActionsType) {
+    this.commentsService.applyAction(commentId, action)
+      .subscribe((data) => {
+        if (!data.error && data.message) {
+          this.processArticle();
+          this._snackBar.open(data.message);
+        } else {
+          this._snackBar.open(data.message);
+        }
+      })
+  }
+
+  getActionsForComment(commentId: string) {
+    this.commentsService.getActionsForComment(commentId)
+      .subscribe((data) => {
+        if (!data.error && data.message) {
+          console.log(data.message)
+        } else {
+          console.log(data.message)
+        }
+      })
+  }
+
+  getArticleCommentActions(articleId: string) {
+    this.commentsService.getArticleCommentActions(articleId)
+      .subscribe((data: DefaultResponseType | { comment: string, action: CommentActionsType }[]) => {
+        if ((data as { comment: string, action: CommentActionsType }[])) {
+          this.commentsActions = data as ({ comment: string, action: CommentActionsType }[]);
+        }
+      })
+  }
+
+  protected readonly CommentActionsType = CommentActionsType;
 }
