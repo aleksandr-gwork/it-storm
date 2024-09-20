@@ -106,7 +106,7 @@
       <div class="articles-items">
         <article-card *ngFor="let article of articlesPopular" [article]="article"></article-card>
       </div>
-      <a routerLink="/articles" class="articles-link">
+      <a routerLink="/articles" [queryParams]="{page: 1}" class="articles-link">
         Перейти в блог
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

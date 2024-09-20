@@ -1,10 +1,12 @@
 <div class="container">
   <div class="wrapper">
-    <div class="form" >
+    <div class="form">
       <h1 class="h2 title">Войти в личный кабинет</h1>
       <form [formGroup]="loginForm">
-        <input type="text" placeholder="Электронная почта" class="input" formControlName="email">
-        <input type="password" placeholder="Пароль" class="input" formControlName="password" autocomplete="off">
+        <input type="text" placeholder="Электронная почта" class="input" formControlName="email"
+               [style]="{border: loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? '1px solid red' : ''}">
+        <input type="password" placeholder="Пароль" class="input" formControlName="password" autocomplete="off"
+               [style]="{border: loginForm.get('password')?.invalid && loginForm.get('email')?.touched ? '1px solid red' : ''}">
         <label class="agree">
           <input type="checkbox" formControlName="rememberMe">
           <span>Запомнить меня</span>

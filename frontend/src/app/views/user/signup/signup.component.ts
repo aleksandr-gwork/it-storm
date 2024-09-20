@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../core/auth.service";
 import {Router} from "@angular/router";
@@ -12,9 +12,7 @@ import {SignupResponseType} from "../../../../types/signup-response.type";
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
-
-
+export class SignupComponent {
 
   signupForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[А-ЯЁ][а-яё]*(\s[А-ЯЁ][а-яё]*)*$/)]],
@@ -24,9 +22,7 @@ export class SignupComponent implements OnInit {
   })
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
-              private _snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
+              private _snackBar: MatSnackBar) {
   }
 
   signUp() {
@@ -62,6 +58,7 @@ export class SignupComponent implements OnInit {
           }
         })
     } else {
+      this.signupForm.markAllAsTouched();
       this._snackBar.open('Заполните все обязательные поля');
     }
   }
