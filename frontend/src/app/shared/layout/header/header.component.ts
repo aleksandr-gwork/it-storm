@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserInfoType} from "../../../../types/user-info.type";
 import {DefaultResponseType} from "../../../../types/default-response.type";
+import {style} from "@angular/animations";
 
 
 @Component({
@@ -21,9 +22,6 @@ export class HeaderComponent implements OnInit {
     this.isLogged = this.authService.getIsLogged();
     this.userName = localStorage.getItem('userName') || 'Пользователь';
   }
-
-
-
 
   ngOnInit(): void {
     this.authService.isLogged$.subscribe((statusLogin) => {

@@ -14,8 +14,7 @@
           <a routerLink="/" fragment="about">О нас</a>
         </div>
         <div class="navbar-item">
-          <a routerLink="/articles" routerLinkActive="active-link"
-             [routerLinkActiveOptions]="{exact: true}">Статьи</a>
+          <a routerLink="/articles" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [queryParams]="{page: 1}">Статьи</a>
         </div>
         <div class="navbar-item">
           <a routerLink="/" fragment="reviews">Отзывы</a>

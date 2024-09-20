@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../core/auth.service";
 import {DefaultResponseType} from "../../../../types/default-response.type";
@@ -12,7 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   loginForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
@@ -21,10 +21,7 @@ export class LoginComponent implements OnInit {
   })
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
-              private _snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
-
+              private _snackBar: MatSnackBar) {
   }
 
   login() {
@@ -59,7 +56,9 @@ export class LoginComponent implements OnInit {
             }
           }
         })
+    } else {
+      this.loginForm.markAllAsTouched();
+      this._snackBar.open('Заполните все обязательные поля');
     }
   }
-
 }

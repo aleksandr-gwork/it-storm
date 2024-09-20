@@ -1,5 +1,6 @@
 @import "../../../../assets/styles/variables.scss";
 
+
 .header {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -49,17 +50,12 @@
       }
 
       .user {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: flex-end;
         gap: 7px;
-
-        svg {
-          &.hover-svg:hover path {
-            cursor: pointer;
-            stroke: #B9D5FD;
-          }
-        }
+        cursor: pointer;
 
         a {
           color: $main-text-color;
