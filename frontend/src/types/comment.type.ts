@@ -6,7 +6,7 @@ export type CommentType = {
   date: string,
   likesCount: number,
   dislikesCount: number,
-  action: CommentActionsType[],
+  action: CommentActionsType,
   user: {
     id: string,
     name: string

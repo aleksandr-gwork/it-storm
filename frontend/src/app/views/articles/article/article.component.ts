@@ -48,6 +48,8 @@ export class ArticleComponent implements OnInit {
               private commentsService: CommentsService,
               private _snackBar: MatSnackBar) {
     this.isLogged = this.authService.getIsLogged(); // Инициализируем статус авторизации
+    this.loadedComments = []; // Очищаем список загруженных комментариев
+    this.offset = 3; // Обновляем смещение для загрузки комментариев
   }
 
 
@@ -89,6 +91,12 @@ export class ArticleComponent implements OnInit {
         if ((data as { allCount: number, comments: CommentType[] })) {
           this.moreComments = data as { allCount: number, comments: CommentType[] };
 
+          this.moreComments.comments.forEach(comment => {
+            if (this.commentsActions.find(action => action.comment === comment.id)) {
+              comment.action = this.commentsActions.find(action => action.comment === comment.id)!.action;
+            }
+          })
+
           if (this.moreComments && this.moreComments.comments) {
             this.loadedComments = this.loadedComments.concat(this.moreComments.comments);
             this.offset += 10;
@@ -109,16 +117,20 @@ export class ArticleComponent implements OnInit {
           .subscribe((data) => {
             this.article = data;
 
-            this.getArticleCommentActions(data.id);
-
-            // Если количество комментариев больше 3, то показываем кнопку "Показать еще"
-            if (this.article && this.article.commentsCount && this.article.commentsCount > 3) {
-              this.moreButtonStatus = true;
-            } else {
-              this.moreButtonStatus = false;
-            }
-            this.loadedComments = []; // Очищаем список загруженных комментариев
-            this.offset = 3; // Обновляем смещение для загрузки комментариев
+            this.commentsService.getArticleCommentActions(this.article.id)
+              .subscribe((data: DefaultResponseType | { comment: string, action: CommentActionsType }[]) => {
+                if ((data as { comment: string, action: CommentActionsType }[])) {
+                  this.commentsActions = data as ({ comment: string, action: CommentActionsType }[]);
+                  this.article?.comments?.forEach(comment => {
+                    this.commentsActions.forEach(commentAction => {
+                      if (comment.id === commentAction.comment) {
+                        comment.action = commentAction.action;
+                      }
+                    })
+                  })
+                }
+              })
+            this.moreButtonFunction();
           });
         // Загружаем список похожих статей
         this.articlesService.getRelatedArticles(params['url'])
@@ -126,6 +138,17 @@ export class ArticleComponent implements OnInit {
             this.relatedArticles = data;
           });
       });
+  }
+
+  moreButtonFunction() {
+    // Если количество комментариев больше 3, то показываем кнопку "Показать еще"
+    if (this.article && this.article.commentsCount && this.article.commentsCount > 3) {
+      this.moreButtonStatus = true;
+    } else {
+      this.moreButtonStatus = false;
+    }
+    this.loadedComments = []; // Очищаем список загруженных комментариев
+    this.offset = 3; // Обновляем смещение для загрузки комментариев
   }
 
   applyAction(commentId: string, action: CommentActionsType) {
@@ -141,24 +164,5 @@ export class ArticleComponent implements OnInit {
 
   }
 
-  getActionsForComment(commentId: string) {
-    this.commentsService.getActionsForComment(commentId)
-      .subscribe((data) => {
-        if (!data.error && data.message) {
-          console.log(data.message)
-        } else {
-          console.log(data.message)
-        }
-      })
-  }
-
-  getArticleCommentActions(articleId: string) {
-    this.commentsService.getArticleCommentActions(articleId)
-      .subscribe((data: DefaultResponseType | { comment: string, action: CommentActionsType }[]) => {
-        if ((data as { comment: string, action: CommentActionsType }[])) {
-          this.commentsActions = data as ({ comment: string, action: CommentActionsType }[]);
-        }
-      })
-  }
 
 }
