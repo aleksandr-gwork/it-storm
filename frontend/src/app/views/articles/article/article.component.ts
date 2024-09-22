@@ -17,6 +17,8 @@ import {DefaultResponseType} from "../../../../types/default-response.type";
 })
 export class ArticleComponent implements OnInit {
 
+  protected readonly CommentActionsType = CommentActionsType;
+
   isLogged: boolean = false; // Статус авторизации
 
   // Переменные для загрузки комментариев
@@ -25,7 +27,6 @@ export class ArticleComponent implements OnInit {
   offset: number = 3; // Смещение для загрузки комментариев
   moreComments: { allCount: number, comments: CommentType[] } | undefined; // Список комментариев
   loadedComments: CommentType[] = []; // Список загруженных комментариев
-
 
   commentForm = this.fb.group({
     text: ['', Validators.required]
@@ -129,14 +130,15 @@ export class ArticleComponent implements OnInit {
 
   applyAction(commentId: string, action: CommentActionsType) {
     this.commentsService.applyAction(commentId, action)
-      .subscribe((data) => {
+      .subscribe((data: DefaultResponseType) => {
         if (!data.error && data.message) {
           this.processArticle();
           this._snackBar.open(data.message);
-        } else {
-          this._snackBar.open(data.message);
         }
+      }, (error) => {
+        this._snackBar.open(error.error.message);
       })
+
   }
 
   getActionsForComment(commentId: string) {
@@ -159,5 +161,4 @@ export class ArticleComponent implements OnInit {
       })
   }
 
-  protected readonly CommentActionsType = CommentActionsType;
 }

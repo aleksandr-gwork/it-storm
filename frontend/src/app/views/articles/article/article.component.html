@@ -57,7 +57,8 @@
               комментарий к статье!</p>
             <form [formGroup]="commentForm" class="comments-form" *ngIf="isLogged">
               <textarea formControlName="text" rows="10" placeholder="Напишите Ваш комментарий к статье..."></textarea>
-              <button class="btn" type="button" (click)="addComment(article.id)">Опубликовать комментарий</button>
+              <button class="btn" type="button" (click)="addComment(article.id)"
+                      [disabled]="!commentForm.valid || !commentForm.value.text">Опубликовать комментарий</button>
             </form>
 
             <div class="comments-list">
