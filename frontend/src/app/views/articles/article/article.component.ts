@@ -33,6 +33,7 @@ export class ArticleComponent implements OnInit {
   })
 
   article: ArticleType | undefined;
+  initArticles: CommentType[] | undefined;
   relatedArticles: ArticleType[] | undefined;
 
   commentsActions: {
@@ -116,6 +117,7 @@ export class ArticleComponent implements OnInit {
         this.articlesService.getArticle(params['url'])
           .subscribe((data) => {
             this.article = data;
+            this.initArticles = data.comments;
 
             this.commentsService.getArticleCommentActions(this.article.id)
               .subscribe((data: DefaultResponseType | { comment: string, action: CommentActionsType }[]) => {
@@ -151,18 +153,39 @@ export class ArticleComponent implements OnInit {
     this.offset = 3; // Обновляем смещение для загрузки комментариев
   }
 
-  applyAction(commentId: string, action: CommentActionsType) {
+  applyAction(commentId: string, action: CommentActionsType, articlesArray: CommentType[]) {
     this.commentsService.applyAction(commentId, action)
-      .subscribe((data: DefaultResponseType) => {
-        if (!data.error && data.message) {
-          this.processArticle();
-          this._snackBar.open(data.message);
+      .subscribe({
+        next: (data: DefaultResponseType) => {
+          if (!data.error && data.message) {
+            // Ищем комментарий в списке загруженных комментариев
+            const commentIndex = articlesArray.findIndex(comment => comment.id === commentId);
+            if (commentIndex !== -1) {
+              //Обновляем действие комментария в массиве loadedComments
+              articlesArray[commentIndex].action = action;
+              //Также можно обновить счётчик лайков/дизлайков, если он есть
+              //Например, если action это лайк или дизлайк - увеличиваем или уменьшаем значение
+              if (action === CommentActionsType.like) {
+                articlesArray[commentIndex].likesCount++;
+                // Так же нужно сбросить дизлайк, если он есть
+                if (articlesArray[commentIndex].action === CommentActionsType.like) {
+                  articlesArray[commentIndex].dislikesCount--;
+                }
+              } else if (action === CommentActionsType.dislike) {
+                articlesArray[commentIndex].dislikesCount++;
+                // Так же нужно сбросить лайк, если он есть
+                if (articlesArray[commentIndex].action === CommentActionsType.dislike) {
+                  articlesArray[commentIndex].likesCount--;
+                }
+              }
+            }
+            // Показываем уведомление
+            this._snackBar.open(data.message);
+          }
+        },
+        error: (e) => {
+          this._snackBar.open(e.error.message);
         }
-      }, (error) => {
-        this._snackBar.open(error.error.message);
-      })
-
+      });
   }
-
-
 }
