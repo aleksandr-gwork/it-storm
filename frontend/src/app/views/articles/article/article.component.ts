@@ -162,25 +162,37 @@ export class ArticleComponent implements OnInit {
             const commentIndex = articlesArray.findIndex(comment => comment.id === commentId);
             if (commentIndex !== -1) {
               //Обновляем действие комментария в массиве loadedComments
-              articlesArray[commentIndex].action = action;
+
               //Также можно обновить счётчик лайков/дизлайков, если он есть
               //Например, если action это лайк или дизлайк - увеличиваем или уменьшаем значение
               if (action === CommentActionsType.like) {
-                articlesArray[commentIndex].likesCount++;
+                if (articlesArray[commentIndex].action !== action) {
+                  articlesArray[commentIndex].likesCount++;
+                  articlesArray[commentIndex].action = action;
+                } else if (articlesArray[commentIndex].likesCount > 0) {
+                  articlesArray[commentIndex].action = null;
+                  articlesArray[commentIndex].likesCount--;
+                }
                 // Так же нужно сбросить дизлайк, если он есть
-                if (articlesArray[commentIndex].action === CommentActionsType.like) {
+                if (articlesArray[commentIndex].action !== CommentActionsType.dislike && articlesArray[commentIndex].dislikesCount > 0) {
                   articlesArray[commentIndex].dislikesCount--;
                 }
               } else if (action === CommentActionsType.dislike) {
-                articlesArray[commentIndex].dislikesCount++;
+                if (articlesArray[commentIndex].action !== action) {
+                  articlesArray[commentIndex].dislikesCount++;
+                  articlesArray[commentIndex].action = action;
+                } else if (articlesArray[commentIndex].dislikesCount > 0) {
+                  articlesArray[commentIndex].action = null;
+                  articlesArray[commentIndex].dislikesCount--;
+                }
                 // Так же нужно сбросить лайк, если он есть
-                if (articlesArray[commentIndex].action === CommentActionsType.dislike) {
+                if (articlesArray[commentIndex].action !== CommentActionsType.like && articlesArray[commentIndex].likesCount > 0) {
                   articlesArray[commentIndex].likesCount--;
                 }
+              } else if (action === CommentActionsType.violate) {
+                this._snackBar.open(data.message);
               }
             }
-            // Показываем уведомление
-            this._snackBar.open(data.message);
           }
         },
         error: (e) => {
